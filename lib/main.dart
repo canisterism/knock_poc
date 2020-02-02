@@ -23,13 +23,27 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('knock poc')),
-      body: ListView.builder(
-        itemCount: searchList.members.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(searchList.members[index].name),
-          );
-        },
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverGrid(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 500.0,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 4.0,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Container(
+                  alignment: Alignment.center,
+                  color: Colors.teal[100 * (index % 9)],
+                  child: Text(searchList.members[index].name),
+                );
+              },
+              childCount: searchList.members.length,
+            ),
+          ),
+        ],
       ),
     );
   }
