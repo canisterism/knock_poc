@@ -1,5 +1,5 @@
 import 'package:scoped_model/scoped_model.dart';
-import 'member_model.dart';
+import '../models/member.dart';
 
 class SearchList extends Model {
   SearchList({this.membersMaster, this.searchWord}) {
@@ -7,12 +7,7 @@ class SearchList extends Model {
   }
 
   static SearchList sample() {
-    return SearchList(
-      membersMaster: List.generate(
-        100,
-        (i) => MemberModel(id: i, name: 'member${i}', avatarUrl: ''),
-      ),
-    );
+    return SearchList(membersMaster: sampleMembers());
   }
 
   void onChangeSearchWord(String word) {
@@ -25,7 +20,60 @@ class SearchList extends Model {
     notifyListeners();
   }
 
-  final List<MemberModel> membersMaster;
-  List<MemberModel> members;
+  final List<Member> membersMaster;
+  List<Member> members;
   String searchWord;
 }
+
+final japaneseAlphabets = [
+  'わ',
+  'ら',
+  'や',
+  'ま',
+  'は',
+  'な',
+  'た',
+  'さ',
+  'か',
+  'あ',
+  ' ',
+  'り',
+  ' ',
+  'み',
+  'ひ',
+  'に',
+  'ち',
+  'し',
+  'き',
+  'い',
+  ' ',
+  'る',
+  'ゆ',
+  'む',
+  'ふ',
+  'ぬ',
+  'つ',
+  'す',
+  'く',
+  'う',
+  ' ',
+  'れ',
+  ' ',
+  'め',
+  'へ',
+  'ね',
+  'て',
+  'せ',
+  'け',
+  'え',
+  ' ',
+  'ろ',
+  'よ',
+  'も',
+  'ほ',
+  'の',
+  'と',
+  'そ',
+  'こ',
+  'お'
+];
