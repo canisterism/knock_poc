@@ -10,7 +10,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: MaterialColor(
+          0xFFFFFFFF,
+          const <int, Color>{
+            50: const Color(0xFFFFFFFF),
+            100: const Color(0xFFFFFFFF),
+            200: const Color(0xFFFFFFFF),
+            300: const Color(0xFFFFFFFF),
+            400: const Color(0xFFFFFFFF),
+            500: const Color(0xFFFFFFFF),
+            600: const Color(0xFFFFFFFF),
+            700: const Color(0xFFFFFFFF),
+            800: const Color(0xFFFFFFFF),
+            900: const Color(0xFFFFFFFF),
+          },
+        ),
       ),
       home: HomeScreen(),
     );
@@ -21,65 +35,71 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: Size(500, 150),
+        child: AppBar(
+          elevation: 0,
           title: Text(
-        'knock poc',
-        style: TextStyle(fontSize: 40),
-      )),
+            '* giftee',
+            style: TextStyle(fontSize: 48),
+          ),
+          bottom: PreferredSize(
+            preferredSize: Size(500, 40),
+            child: BottomAppBar(
+              elevation: 0,
+              child: Text(
+                '担当者をお選びください',
+                style: TextStyle(fontSize: 32),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: ScopedModel<SearchList>(
         model: SearchList.sample(),
         child: CustomScrollView(
           slivers: <Widget>[
-            _buildSearchInputArea(context),
-            _buildMembersArea(context),
+            _buildAlphabetArea(context),
           ],
         ),
       ),
     );
   }
 
-  _buildSearchInputArea(BuildContext context) {
+  _buildAlphabetArea(BuildContext context) {
     return ScopedModelDescendant<SearchList>(
-      builder: (context, child, model) => SliverList(
-        delegate: SliverChildListDelegate([
-          Align(
-            alignment: Alignment.center,
-            child: TextField(
-              controller: TextEditingController(),
-              decoration: InputDecoration(
-                  labelText: "Search",
-                  hintText: "Search",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-            ),
-          ),
-        ]),
-      ),
-    );
-  }
-
-  _buildMembersArea(BuildContext context) {
-    return ScopedModelDescendant<SearchList>(
-      builder: (context, child, model) => SliverGrid(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 500.0,
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-          childAspectRatio: 4.0,
+      builder: (context, child, model) => SliverPadding(
+        padding: EdgeInsets.fromLTRB(
+          56,
+          80,
+          56,
+          56,
         ),
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Container(
-              alignment: Alignment.center,
-              color: Colors.teal[100 * (index % 9)],
-              child: FlatButton(
-                child: Text(model.members[index].name),
-                onPressed: () => model.selectMember(id: index),
-              ),
-            );
-          },
-          childCount: model.members.length,
+        sliver: SliverGrid(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 90.0,
+            mainAxisSpacing: 15.0,
+            crossAxisSpacing: 15.0,
+            childAspectRatio: 1.0,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Container(
+                decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(color: Colors.grey.withAlpha(50))]),
+                alignment: Alignment.center,
+                child: FlatButton(
+                  child: Text(
+                    japaneseAlphabets[index],
+                    style: TextStyle(fontSize: 32),
+                  ),
+                  onPressed: () => model.selectMember(id: index),
+                ),
+              );
+            },
+            childCount: japaneseAlphabets.length,
+          ),
         ),
       ),
     );
