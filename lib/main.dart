@@ -244,6 +244,29 @@ class ShareScreen extends StatelessWidget {
                   );
                 },
               ),
+              Builder(builder: (context) {
+                final errorTextList = [
+                  "140字以内で入力してください。",
+                  "でも20字以上でも入力してください。"
+                ];
+                final inputDecoration = errorTextList.length < 1
+                    ? InputDecoration(
+                        hintText: 'いつもありがとう！',
+                        labelText: 'メッセージ',
+                        errorText: errorTextList.join("\n"))
+                    : InputDecoration(
+                        hintText: 'いつもありがとう！',
+                        labelText: 'メッセージ',
+                        errorText: errorTextList.join("\n"));
+
+                return TextField(
+                  maxLines: 5,
+                  minLines: 3,
+                  maxLength: 140,
+                  onChanged: (e) => print(e),
+                  decoration: inputDecoration,
+                );
+              })
             ],
           );
         },
