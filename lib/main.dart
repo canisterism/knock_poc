@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:share/share.dart';
 import 'scoped_models/serch_list.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:html/dom.dart' as dom;
 
@@ -29,18 +31,20 @@ class MyApp extends StatelessWidget {
           },
         ),
       ),
+      routes: routes,
       home: HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
+  static final routeName = 'next';
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Widget> _children = [MembersScreen(), HtmlScreen()];
+  final List<Widget> _children = [MembersScreen(), HtmlScreen(), ShareScreen()];
 
   int _currentIndex = 0;
 
@@ -63,6 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.code),
               title: Text('html'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.share),
+              title: Text('html'),
             )
           ]),
     );
@@ -71,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class HtmlScreen extends StatelessWidget {
   const HtmlScreen({Key key}) : super(key: key);
-
+  static final routeName = '/';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,3 +191,104 @@ class MembersScreen extends StatelessWidget {
     );
   }
 }
+
+class ShareScreen extends StatelessWidget {
+  const ShareScreen({Key key}) : super(key: key);
+
+  final text = 'sample text';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('モーダルetc検証')),
+      body: Builder(
+        builder: (BuildContext context) {
+          return Column(
+            children: <Widget>[
+              RaisedButton(
+                child: const Text('Share'),
+                onPressed: () {
+                  final RenderBox box = context.findRenderObject();
+                  Share.share(text,
+                      subject: text,
+                      sharePositionOrigin:
+                          box.localToGlobal(Offset.zero) & box.size);
+                },
+              ),
+              RaisedButton(
+                child: const Text('webview'),
+                onPressed: () {
+                  _launchUrl(
+                    'https://google.com',
+                  );
+                },
+              ),
+              RaisedButton(
+                child: const Text('modal'),
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 0.95),
+                      child: Scaffold(
+                        body: RaisedButton(
+                            child: Text('next screen'),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(ModalNextScreen.routeName);
+                            }),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  void _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      /// ** iOS **
+      ///  - Set farceSafariVC to false to open main browser in iOS for using cookies/context of the app and being able to do SSO.
+      ///    cf. https://github.com/flutter/plugins/blob/master/packages/url_launcher/url_launcher/lib/url_launcher.dart#L25
+
+      /// ** Android **
+      ///  - Set forceWebView to true to open WebView. Unlike iOS,
+      ///    browser context is shared across WebViews in Android.
+      ///    cf. https://github.com/flutter/plugins/blob/master/packages/url_launcher/url_launcher/lib/url_launcher.dart#L40
+      await launch(url, forceWebView: true);
+    } else {
+      // TODO(kato1628): error handling..., https://github.com/giftee/sputnik/issues/362
+      throw Exception('Could not launch $url');
+    }
+  }
+}
+
+// A builder is used to retrieve the context immediately
+// surrounding the RaisedButton.
+//
+// The context's `findRenderObject` returns the first
+// RenderObject in its descendent tree when it's not
+// a RenderObjectWidget. The RaisedButton's RenderObject
+// has its position and size after it's built.
+
+class ModalNextScreen extends StatelessWidget {
+  const ModalNextScreen({Key key}) : super(key: key);
+  static final routeName = 'next';
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('this is next screen'),
+    );
+  }
+}
+
+Map<String, Widget Function(BuildContext context)> routes = {
+  ModalNextScreen.routeName: (context) => ModalNextScreen(),
+  HomeScreen.routeName: (context) => HomeScreen(),
+};
