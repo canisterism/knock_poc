@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:share/share.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'scoped_models/serch_list.dart';
@@ -217,12 +218,24 @@ class ShareScreen extends StatelessWidget {
                 },
               ),
               RaisedButton(
-                child: const Text('webview'),
+                child: const Text('webview_flutter(公式)'),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(GithubScreen.routeName);
-                  // _launchUrl(
-                  //   'https://google.com',
-                  // );
+                  Navigator.of(context)
+                      .pushNamed(WebviewFlutterScreen.routeName);
+                },
+              ),
+              RaisedButton(
+                child: const Text('flutter_webview_plugin(コミュニティ製)'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FlutterWebviewPluginScreen(),
+                      settings: RouteSettings(
+                        arguments: FlutterWebviewPlugin(),
+                      ),
+                    ),
+                  );
                 },
               ),
               RaisedButton(
@@ -316,12 +329,14 @@ class ModalNextScreen extends StatelessWidget {
 Map<String, Widget Function(BuildContext context)> routes = {
   ModalNextScreen.routeName: (context) => ModalNextScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
-  GithubScreen.routeName: (context) => GithubScreen(),
+  WebviewFlutterScreen.routeName: (context) => WebviewFlutterScreen(),
+  FlutterWebviewPluginScreen.routeName: (context) =>
+      FlutterWebviewPluginScreen(),
 };
 
-class GithubScreen extends StatelessWidget {
-  const GithubScreen({Key key}) : super(key: key);
-  static final routeName = 'github';
+class WebviewFlutterScreen extends StatelessWidget {
+  const WebviewFlutterScreen({Key key}) : super(key: key);
+  static final routeName = 'webview_flutter';
 
   @override
   Widget build(BuildContext context) {
@@ -332,5 +347,29 @@ class GithubScreen extends StatelessWidget {
           javascriptMode: JavascriptMode.unrestricted,
           onPageStarted: (url) {},
         ));
+  }
+}
+
+class FlutterWebviewPluginScreen extends StatelessWidget {
+  FlutterWebviewPluginScreen({
+    Key key,
+  }) : super(key: key);
+  static final routeName = 'flutter_webview_plugin';
+
+  @override
+  Widget build(BuildContext context) {
+    final FlutterWebviewPlugin flutterWebviewPlugin =
+        ModalRoute.of(context).settings.arguments;
+    flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      if (url == 'https://github.com/enterprise') {
+        flutterWebviewPlugin.close();
+        flutterWebviewPlugin.dispose();
+        Navigator.of(context).pushNamed(HomeScreen.routeName);
+      }
+    });
+    return WebviewScaffold(
+      appBar: AppBar(title: Text('Github')),
+      url: 'https://github.com',
+    );
   }
 }
