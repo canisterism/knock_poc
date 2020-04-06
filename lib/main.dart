@@ -97,7 +97,30 @@ class HtmlScreen extends StatelessWidget {
               <a class="text-link" href="/">テキストリンク</a>
               <div class="caption">仕様・注意事項等のサブテキスト クラス名: caption</div>
               <div class="caption">font-size: 12px, linehight: 1.6</div>
-              <div class="box-list--alert">このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</div>
+              <table>
+                <tr>
+                  <th>項目1</th>
+                  <th>Hoge</th>
+                  <th>Hoge</th>
+                </tr>
+                <tr>
+                  <td>項目2</td>
+                  <td>Fuga</td>
+                  <td>Fuga</td>
+                </tr>
+                <tr>
+                  <td>項目3</td>
+                  <td>Piyo</td>
+                  <td>Piyo</td>
+                </tr>
+              </table>
+              <div class="box-list--alert">
+                <ul>
+                  <li>このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</li>
+                  <li>このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</li>
+                  <li>このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</li>
+                </ul>
+              </div>
               <div class="box-list--attention">このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</div>
 
             ''',
