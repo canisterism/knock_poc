@@ -1,7 +1,8 @@
 PODS:
   - Flutter (1.0.0)
-  - screen (0.0.1):
   - flutter_webview_plugin (0.0.1):
+    - Flutter
+  - screen (0.0.1):
     - Flutter
   - share (0.5.2):
     - Flutter
@@ -22,8 +23,8 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - screen (from `.symlinks/plugins/screen/ios`)
   - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
+  - screen (from `.symlinks/plugins/screen/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
@@ -36,10 +37,10 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  screen:
-    :path: ".symlinks/plugins/screen/ios"
   flutter_webview_plugin:
     :path: ".symlinks/plugins/flutter_webview_plugin/ios"
+  screen:
+    :path: ".symlinks/plugins/screen/ios"
   share:
     :path: ".symlinks/plugins/share/ios"
   url_launcher:
@@ -59,8 +60,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  screen: abd91ca7bf3426e1cc3646d27e9b2358d6bf07b0
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
+  screen: abd91ca7bf3426e1cc3646d27e9b2358d6bf07b0
   share: bae0a282aab4483288913fc4dc0b935d4b491f2e
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
