@@ -484,6 +484,11 @@ class ShareScreen extends StatelessWidget {
                   );
                 },
               ),
+              RaisedButton(
+                  child: const Text('BottomUp modal '),
+                  onPressed: () {
+                    Navigator.of(context).push(_createRoute());
+                  }),
               Builder(builder: (context) {
                 final errorTextList = [
                   "140字以内で入力してください。",
@@ -513,6 +518,29 @@ class ShareScreen extends StatelessWidget {
       ),
     );
   }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+      ) =>
+          BottomUpModalScreen(),
+      transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+      ) {
+        final tween = Tween(begin: Offset(0.0, 1.0), end: Offset.zero)
+            .chain(CurveTween(curve: Curves.ease));
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
+    );
+  }
 }
 
 // A builder is used to retrieve the context immediately
@@ -534,6 +562,20 @@ class ModalNextScreen extends StatelessWidget {
   }
 }
 
+class BottomUpModalScreen extends StatelessWidget {
+  const BottomUpModalScreen({Key key}) : super(key: key);
+  static final routeName = 'bottomUpModal';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: Text('this is bottomUpModal screen'),
+      ),
+    );
+  }
+}
+
 Map<String, Widget Function(BuildContext context)> routes = {
   ModalNextScreen.routeName: (context) => ModalNextScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
@@ -541,6 +583,7 @@ Map<String, Widget Function(BuildContext context)> routes = {
   WebviewFlutterScreen.routeName: (context) => WebviewFlutterScreen(),
   FlutterWebviewPluginScreen.routeName: (context) =>
       FlutterWebviewPluginScreen(),
+  BottomUpModalScreen.routeName: (context) => BottomUpModalScreen(),
 };
 
 class WebviewFlutterScreen extends StatelessWidget {
