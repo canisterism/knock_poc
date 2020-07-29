@@ -88,76 +88,188 @@ class HtmlScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('HTML検証')),
       body: Container(
-          child: SingleChildScrollView(
-        child: Html(
-          data: '''
-              <div class="decoration-head">コンテンツの見出し</div>
-              <div class="decoration-sub-title">サブタイトルなどに使う</div>
-              <div class="decoration-small-sub-title">小さいサブタイトルなどに使う？</div>
-              <p class="body">本文 クラス名: body</p>
-              <p class="body">font-size: 14px, linehight: 2</p>
-              <a class="text-link" href="/">テキストリンク</a>
-              <div class="caption">仕様・注意事項等のサブテキスト クラス名: caption</div>
-              <div class="caption">font-size: 12px, linehight: 1.6</div>
-              <table>
-                <tr>
-                  <th>項目1</th>
-                  <th>Hoge</th>
-                  <th>Hoge</th>
-                </tr>
-                <tr>
-                  <td>項目2</td>
-                  <td>Fuga</td>
-                  <td>Fuga</td>
-                </tr>
-                <tr>
-                  <td>項目3</td>
-                  <td>Piyo</td>
-                  <td>Piyo</td>
-                </tr>
-              </table>
-              <div class="box-list--alert">
-                <ul>
-                  <li>このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</li>
-                  <li>このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</li>
-                  <li>このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</li>
-                </ul>
-              </div>
-              <div class="box-list--attention">このボックスは長文で注意喚起やエラー詳細を出したいときに使用するスペースです</div>
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Html(
+                // なんか知らんけどcustomRenderのスタイルが当たってない
+                data: '''
+                <div class="box-list--alert">
+                  <p>
+                      <strong>
+                          スターバックス コーヒー ジャパン 株式会社からのお知らせ
+                      </strong>
+                  </p>
+                  <p>
+                      新型コロナウイルス感染拡大と予防への対応について。<a href="https://example.com">詳細はこちらからご確認ください。</a>
+                  </p>
+                </div>
+                <div class="box-list--attention">
+                  <p>
+                      <strong>
+                          スターバックス コーヒー ジャパン 株式会社からのお知らせ
+                      </strong>
+                  </p>
+                  <p>
+                      新型コロナウイルス感染拡大と<span class="alert">予防への対応</span>について。<a href="https://example.com">詳細はこちらからご確認ください。</a>
+                  </p>
+                </div>
+                <div>
+                  <h1 class="decoration-sub-title">
+                      コーヒーのおいしさを引き立てるフードをギフトチケットとして贈れます
+                  </h1>
+                  <p>スターバックスの店舗にて、お好きなフード1つ（税込300円まで）と引き換えいただけるチケットです。
+                  </br>お会計の際にレジにてギフトチケット画面をご提示または印刷してお持ちください。
+                  </br>注文したフード代が300円（税込）を超える場合は、超えた金額をお支払ください。また、つり銭はご容赦ください</p>
+                </div>
+                <div>
+                  <h1 class="decoration-sub-title">
+                      フードチケットのギフトで応援や感謝を伝えよう
+                  </h1>
+                  <img src="https://dummyimage.com/1000x1000/ccc/999.png&text=dummy" alt="img">
+                  <p>
+                      コーヒーのおいしさを引き立ててくれる魅力的なフードメニューの中から、ギフトシーンに合わせたgifteeのレコメンドフードをご紹介いたします。シーンによって時には主役になるフードと一緒に、<span class="primary">応援や感謝など伝えたい気持ちを一緒</span>に送ってください。
+                  </p>
+                </div>
+                <div>
+                  <h2 class="decoration-sub-title--small">
+                      【朝食】1日のはじまりを応援したい人へ
+                  </h2>
+                  <img src="https://dummyimage.com/341x244/ccc/999.png&text=dummy" alt="img">
+                  <p>※価格の不足分は差額をお支払いただくことでお使いいただけます。
+                  </br>※一部対象外のフードがございます。
+                  </br>※一部ご使用になれない店舗がございます。</p>
+                </div>
+                <div>
+                  <h2 class="decoration-sub-title--small">
+                      【昼食】食事しながら仕事をがんばる人へ
+                  </h2>
+                  <img src="https://dummyimage.com/341x244/ccc/999.png&text=dummy" alt="img">
+                  <p>※価格の不足分は差額をお支払いただくことでお使いいただけます。
+                  </br>※一部対象外のフードがございます。
+                  </br>※一部ご使用になれない店舗がございます。</p>
+                </div>
+                <div>
+                  <h2 class="decoration-sub-title--small">
+                      【デザート】仕事の合間に一息入れて欲しい人へ
+                  </h2>
+                  <img src="https://dummyimage.com/341x244/ccc/999.png&text=dummy" alt="img">
+                  <p>※価格の不足分は差額をお支払いただくことでお使いいただけます。
+                  </br>※一部対象外のフードがございます。
+                  </br>※一部ご使用になれない店舗がございます。</p>
+                </div>
+                <div class="line"></div>
+                <ol>
+                  <p><strong>【作り方は簡単 3ステップ♪】</strong></p>
+                  <li>写真データを集める</li>
+                  <li>集めた写真をアップロード</li>
+                  <li>テンプレートを選んで、写真と文字を入れていくだけ！</li>
+                </ol>
+                <div>
+                  <p><a href="https://example.com" class="text-link">公式ページはこちら</a></p>
+                </div>
+              ''',
+                style: {
+                  ".decoration-sub-title": Style(),
+                  ".decoration-sub-title--small": Style(
+                    padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                  ),
+                  ".primary": Style(
+                    color: const Color.fromRGBO(240, 139, 113, 1),
+                  ),
+                  ".body": Style(),
+                  ".text-link": Style(textDecoration: TextDecoration.none),
+                  ".caption": Style(fontSize: FontSize(12), color: Colors.grey),
+                  ".box-list--alert": Style(color: Colors.red),
+                  ".alert": Style(color: Colors.red),
+                  ".box-list--attention": Style(color: Colors.grey),
+                  ".red": Style(color: Colors.red),
+                },
+                // keyはhtml tagの名前
+                // レイアウトなどの制御はこっち
+                customRender: {
+                  "*": customRenderer(context),
+                },
+              ),
+              Html(
+                data: '''
+                <div class="caption">
+                  <ul>
+                    <li>日本国内のスターバックス店舗でご使用になれます。一部ご使用になれない店舗がございます。</li>
+                    <li>店舗で引き換える際に店舗内が圏外になる可能性がございます。チケット画面をあらかじめご用意の上、店舗でご利用ください。</li>
+                    <li>ギフトチケットには、有効期限があります。チケット画面にて期限をお確かめの上、有効期限内にご利用ください。</li>
+                    <li>商品交換はスマートフォンに対応しております。パソコンの場合は、用紙に印刷いただくことで交換することができます。詳細はお知らせをご覧ください。</li>
+                    <li>スターバックスの店舗にてお好きなフード1つ（税込300円まで）とお引き換えいただけるチケットです。</li>
+                    <li>1つのフードにつき、フードチケット1枚をご利用いただけます。</li>
+                  </ul>
+                  <p>※税込300円を超える場合、超えた金額をお支払いください。</p>
+                  <p>※つり銭はご容赦ください。一部対象外のフードがございます。</p>
+                  <p>※複写、改竄などの不正行為が発生した場合、利用を停止することがございます。</p>
+                </div>
+                <div class="caption">
+                  <p class="alert">※日本国外のIPから、ギフトチケットをご利用することは出来ません。</p>
+                  <table>
+                    <colgroup>
+                      <col width="20%"/>
+                      <col width="80%"/>
+                    </colgroup>
+                    <tr>
+                      <td class="td-head">内容量</td>
 
-            ''',
-          // CSSと同じノリで書ける
-          style: {
-            ".decoration-head":
-                Style(fontSize: FontSize(24), fontWeight: FontWeight.bold),
-            ".decoration-sub-title": Style(
-                fontSize: FontSize(20),
-                fontWeight: FontWeight.bold,
-                height: 40),
-            ".decoration-small-sub-title": Style(
-              padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-              fontSize: FontSize(16),
-              fontWeight: FontWeight.bold,
-            ),
-            ".body": Style(),
-            ".text-link": Style(textDecoration: TextDecoration.none),
-            ".caption": Style(fontSize: FontSize(12), color: Colors.grey),
-            ".box-list--alert": Style(color: Colors.red),
-            ".box-list--attention": Style(color: Colors.grey),
-          },
-          // keyはhtml tagの名前
-          customRender: {
-            "div": customRenderer,
-            "p": customRenderer,
-            "a": customRenderer,
-          },
+                      <td class="td-content">：牧草牛100%ハンバーグ200g × 4個</td>
+                    </tr>
+                    <tr>
+                      <td class="td-head">賞味期限</td>
+
+                      <td class="td-content">：出荷日より90日（冷凍時）</td>
+                    </tr>
+                    <tr>
+                      <td class="td-head">保存方法</td>
+
+                      <td class="td-content">：冷凍　※クール便にてお届けいたします。</td>
+                    </tr>
+                    <tr>
+                      <td class="td-head">アレルギー</td>
+
+                      <td class="td-content">：牛肉、大豆</td>
+                    </tr>
+                  </table>
+                  <p><strong>【eGift対象外店舗】</strong></p>
+                  <p>フルーツバーＡＯＫＩ　うすい店・果汁工房果琳　ザ・モール長町店・果汁工房果琳　イオンモール木曽川店・フルーツバーＡＯＫＩ　静岡パルコ店・フルーツバーＡＯＫＩ　エスパル郡山店・フルーツバーＡＯＫＩ　ららぽーと海老名店・Wonder
+                    Fruits　北千住マルイ店・Wonder Fruits　LINKS UMEDA店</p>
+                </div>
+              ''',
+                style: {
+                  ".decoration-sub-title": Style(),
+                  ".decoration-sub-title--small": Style(
+                    padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                  ),
+                  ".primary": Style(
+                    color: const Color.fromRGBO(240, 139, 113, 1),
+                  ),
+                  ".body": Style(),
+                  ".text-link": Style(textDecoration: TextDecoration.none),
+                  ".caption": Style(fontSize: FontSize(12), color: Colors.grey),
+                  ".box-list--alert": Style(color: Colors.red),
+                  ".alert": Style(color: Colors.red),
+                  ".box-list--attention": Style(color: Colors.grey),
+                  ".red": Style(color: Colors.red),
+                },
+                // keyはhtml tagの名前
+                // レイアウトなどの制御はこっち
+                customRender: {
+                  "*": customRenderer(context),
+                },
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
   Widget Function(RenderContext, Widget, Map<String, String>, dom.Element)
-      get customRenderer =>
+      customRenderer(BuildContext buildContext) =>
           (RenderContext context, Widget child, attributes, _) {
             switch (attributes['class']) {
               case 'decoration-head':
@@ -172,7 +284,7 @@ class HtmlScreen extends StatelessWidget {
                       ),
                     ),
                     child: child);
-              case 'decoration-small-sub-title':
+              case 'decoration-sub-title--small':
                 return Container(
                     margin: EdgeInsets.symmetric(vertical: 4),
                     decoration: BoxDecoration(
@@ -209,6 +321,8 @@ class HtmlScreen extends StatelessWidget {
                       border: Border.all(color: Colors.grey, width: 2),
                     ),
                     child: child);
+              case 'line':
+                return Divider();
               default:
                 return child;
             }
@@ -370,6 +484,11 @@ class ShareScreen extends StatelessWidget {
                   );
                 },
               ),
+              RaisedButton(
+                  child: const Text('BottomUp modal '),
+                  onPressed: () {
+                    Navigator.of(context).push(_createRoute());
+                  }),
               Builder(builder: (context) {
                 final errorTextList = [
                   "140字以内で入力してください。",
@@ -399,6 +518,29 @@ class ShareScreen extends StatelessWidget {
       ),
     );
   }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+      ) =>
+          BottomUpModalScreen(),
+      transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+      ) {
+        final tween = Tween(begin: Offset(0.0, 1.0), end: Offset.zero)
+            .chain(CurveTween(curve: Curves.ease));
+        final offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
+    );
+  }
 }
 
 // A builder is used to retrieve the context immediately
@@ -420,6 +562,20 @@ class ModalNextScreen extends StatelessWidget {
   }
 }
 
+class BottomUpModalScreen extends StatelessWidget {
+  const BottomUpModalScreen({Key key}) : super(key: key);
+  static final routeName = 'bottomUpModal';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: Text('this is bottomUpModal screen'),
+      ),
+    );
+  }
+}
+
 Map<String, Widget Function(BuildContext context)> routes = {
   ModalNextScreen.routeName: (context) => ModalNextScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
@@ -427,6 +583,7 @@ Map<String, Widget Function(BuildContext context)> routes = {
   WebviewFlutterScreen.routeName: (context) => WebviewFlutterScreen(),
   FlutterWebviewPluginScreen.routeName: (context) =>
       FlutterWebviewPluginScreen(),
+  BottomUpModalScreen.routeName: (context) => BottomUpModalScreen(),
 };
 
 class WebviewFlutterScreen extends StatelessWidget {
